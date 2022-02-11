@@ -24,14 +24,14 @@ kotlin {
         }
 
         tasks.named("jvmJar", Jar::class.java).configure {
-            archiveFileName.set("kobwebghpdemo.jar")
+            archiveFileName.set("site.jar")
         }
     }
     js(IR) {
-        moduleName = "kobwebghpdemo"
+        moduleName = "site"
         browser {
             commonWebpackConfig {
-                outputFileName = "kobwebghpdemo.js"
+                outputFileName = "site.js"
             }
         }
         binaries.executable()
