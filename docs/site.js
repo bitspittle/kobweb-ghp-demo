@@ -855,6 +855,49 @@
     }
     return tmp$ret$2;
   }
+  function dropLast(_this_, n) {
+    {
+      var tmp0_require_0 = n >= 0;
+      {
+      }
+      if (!tmp0_require_0) {
+        var tmp$ret$0;
+        $l$block: {
+          tmp$ret$0 = '' + 'Requested character count ' + n + ' is less than zero.';
+          break $l$block;
+        }
+        var message_2 = tmp$ret$0;
+        throw IllegalArgumentException_init_$Create$(toString_1(message_2));
+      }}
+    return take(_this_, coerceAtLeast(_this_.length - n | 0, 0));
+  }
+  function take(_this_, n) {
+    {
+      var tmp0_require_0 = n >= 0;
+      {
+      }
+      if (!tmp0_require_0) {
+        var tmp$ret$0;
+        $l$block: {
+          tmp$ret$0 = '' + 'Requested character count ' + n + ' is less than zero.';
+          break $l$block;
+        }
+        var message_2 = tmp$ret$0;
+        throw IllegalArgumentException_init_$Create$(toString_1(message_2));
+      }}
+    var tmp$ret$2;
+    $l$block_1: {
+      var tmp1_substring_0 = coerceAtMost(n, _this_.length);
+      var tmp$ret$1;
+      $l$block_0: {
+        tmp$ret$1 = _this_;
+        break $l$block_0;
+      }
+      tmp$ret$2 = tmp$ret$1.substring(0, tmp1_substring_0);
+      break $l$block_1;
+    }
+    return tmp$ret$2;
+  }
   function _no_name_provided_(this$0) {
     this._this$0 = this$0;
   }
@@ -46526,6 +46569,59 @@
     }$this._activePageData._set_value__iav7o_k$($this._routeTree.createPageData_rznhe2_k$($this, path, query, fragment));
     return true;
   }
+  function addPathIfMissing(_this_, $this) {
+    var tmp$ret$1;
+    $l$block_0: {
+      {
+      }
+      var tmp;
+      var tmp$ret$0;
+      $l$block: {
+        var tmp_0 = new Char(35);
+        tmp$ret$0 = !startsWith$default(_this_, tmp_0, false, 2, null);
+        break $l$block;
+      }
+      if (tmp$ret$0) {
+        tmp = _this_;
+      } else {
+        {
+          tmp = null;
+        }
+      }
+      tmp$ret$1 = tmp;
+      break $l$block_0;
+    }
+    var tmp0_elvis_lhs = tmp$ret$1;
+    var tmp_1;
+    if (tmp0_elvis_lhs == null) {
+      var tmp_2 = window.location.href;
+      var tmp_3 = new Char(35);
+      tmp_1 = removePrefix(substringBefore$default(tmp_2, tmp_3, null, 2, null), window.location.origin) + _this_;
+    } else {
+      tmp_1 = tmp0_elvis_lhs;
+    }
+    return tmp_1;
+  }
+  function addBaseDirIfMissing(_this_, $this) {
+    var tmp;
+    var tmp_0;
+    var tmp_1 = new Char(47);
+    if (startsWith$default(_this_, tmp_1, false, 2, null)) {
+      tmp_0 = !startsWith$default_1(_this_, $this._routePrefix, false, 2, null);
+    } else {
+      {
+        tmp_0 = false;
+      }
+    }
+    if (tmp_0) {
+      tmp = dropLast($this._routePrefix, 1) + _this_;
+    } else {
+      {
+        tmp = _this_;
+      }
+    }
+    return tmp;
+  }
   function renderActivePage$composable$lambda($tmp0_rcvr, $$changed, $composer, $force) {
     return $tmp0_rcvr.renderActivePage$composable_5vwf3d_k$($composer, $$changed | 1);
   }
@@ -46558,49 +46654,64 @@
     kind: 'class',
     interfaces: []
   };
-  function Router() {
+  function Router(routePrefix) {
     var tmp = this;
     tmp._activePageData = mutableStateOf$default(null, null, 2, null);
     this._routeTree = new RouteTree();
-    var tmp_0 = window;
-    tmp_0.onpopstate = _no_name_provided_$factory_309(this);
+    this._routePrefix = routePrefix;
+    var tmp$ret$3;
+    $l$block_2: {
+      var tmp$ret$1;
+      $l$block_0: {
+        {
+        }
+        var tmp$ret$0;
+        $l$block: {
+          var tmp_0;
+          var tmp_1 = new Char(47);
+          if (startsWith$default(routePrefix, tmp_1, false, 2, null)) {
+            tmp_0 = routePrefix;
+          } else {
+            {
+              tmp_0 = '' + '/' + routePrefix;
+            }
+          }
+          tmp$ret$0 = tmp_0;
+          break $l$block;
+        }
+        tmp$ret$1 = tmp$ret$0;
+        break $l$block_0;
+      }
+      var tmp0_let_0 = tmp$ret$1;
+      {
+      }
+      var tmp$ret$2;
+      $l$block_1: {
+        var tmp_2;
+        var tmp_3 = new Char(47);
+        if (endsWith$default(tmp0_let_0, tmp_3, false, 2, null)) {
+          tmp_2 = tmp0_let_0;
+        } else {
+          {
+            tmp_2 = '' + tmp0_let_0 + '/';
+          }
+        }
+        tmp$ret$2 = tmp_2;
+        break $l$block_1;
+      }
+      tmp$ret$3 = tmp$ret$2;
+      break $l$block_2;
+    }
+    Unit_getInstance();
+    var tmp_4 = window;
+    tmp_4.onpopstate = _no_name_provided_$factory_309(this);
     this._$stable_119 = 8;
   }
   Router.prototype.navigateTo_di848w_k$ = function (pathQueryAndFragment, allowExternalPaths, updateHistoryMode) {
-    var tmp$ret$1;
-    $l$block_0: {
-      {
-      }
-      var tmp;
+    var pathQueryAndFragment_0 = addBaseDirIfMissing(addPathIfMissing(pathQueryAndFragment, this), this);
+    if (updateActivePage(this, pathQueryAndFragment_0, allowExternalPaths)) {
       var tmp$ret$0;
       $l$block: {
-        var tmp_0 = new Char(35);
-        tmp$ret$0 = !startsWith$default(pathQueryAndFragment, tmp_0, false, 2, null);
-        break $l$block;
-      }
-      if (tmp$ret$0) {
-        tmp = pathQueryAndFragment;
-      } else {
-        {
-          tmp = null;
-        }
-      }
-      tmp$ret$1 = tmp;
-      break $l$block_0;
-    }
-    var tmp0_elvis_lhs = tmp$ret$1;
-    var tmp_1;
-    if (tmp0_elvis_lhs == null) {
-      var tmp_2 = window.location.href;
-      var tmp_3 = new Char(35);
-      tmp_1 = removePrefix(substringBefore$default(tmp_2, tmp_3, null, 2, null), window.location.origin) + pathQueryAndFragment;
-    } else {
-      tmp_1 = tmp0_elvis_lhs;
-    }
-    var pathQueryAndFragment_0 = tmp_1;
-    if (updateActivePage(this, pathQueryAndFragment_0, allowExternalPaths)) {
-      var tmp$ret$2;
-      $l$block_1: {
         var tmp0_let_0 = '' + window.location.origin + pathQueryAndFragment_0;
         {
         }
@@ -46610,23 +46721,23 @@
             window.history.pushState(window.history.state, '', tmp0_let_0);
           else if (tmp0_subject_2.equals(UpdateHistoryMode_REPLACE_getInstance()))
             window.history.replaceState(window.history.state, '', tmp0_let_0);
-        }var tmp_4;
-        var tmp_5 = new Char(35);
-        if (contains$default(tmp0_let_0, tmp_5, false, 2, null)) {
-          var tmp_6 = document;
-          var tmp_7 = new Char(35);
-          var tmp1_safe_receiver_3 = tmp_6.getElementById(substringAfter$default(tmp0_let_0, tmp_7, null, 2, null));
+        }var tmp;
+        var tmp_0 = new Char(35);
+        if (contains$default(tmp0_let_0, tmp_0, false, 2, null)) {
+          var tmp_1 = document;
+          var tmp_2 = new Char(35);
+          var tmp1_safe_receiver_3 = tmp_1.getElementById(substringAfter$default(tmp0_let_0, tmp_2, null, 2, null));
           if (tmp1_safe_receiver_3 == null)
             null;
           else {
             tmp1_safe_receiver_3.scrollIntoView({behavior: 'smooth'});
             Unit_getInstance();
           }
-          tmp_4 = Unit_getInstance();
+          tmp = Unit_getInstance();
         } else {
         }
-        tmp$ret$2 = tmp_4;
-        break $l$block_1;
+        tmp$ret$0 = tmp;
+        break $l$block;
       }
     }};
   Router.prototype.navigateTo$default_api6eb_k$ = function (pathQueryAndFragment, allowExternalPaths, updateHistoryMode, $mask0, $handler) {
@@ -46638,7 +46749,7 @@
   };
   Router.prototype.renderActivePage$composable_5vwf3d_k$ = function ($composer, $changed) {
     var $composer_0 = $composer;
-    $composer_0 = $composer_0.startRestartGroup_ha5a7z_k$(765250467);
+    $composer_0 = $composer_0.startRestartGroup_ha5a7z_k$(765251117);
     sourceInformation($composer_0, 'C(renderActivePage$composable)');
     var tmp0_elvis_lhs = this._activePageData._get_value__0_k$();
     var tmp;
@@ -46685,7 +46796,7 @@
         throw IllegalArgumentException_init_$Create$(toString_1(message_1));
       }}
     {
-      var tmp1_require_0 = this._routeTree.register$composable_7iulo3_k$(route, pageMethod);
+      var tmp1_require_0 = this._routeTree.register$composable_7iulo3_k$(addBaseDirIfMissing(route, this), pageMethod);
       {
       }
       if (!tmp1_require_0) {
@@ -47511,7 +47622,7 @@
     };
   }
   function main() {
-    var router = new Router();
+    var router = new Router('/kobweb-ghp-demo/');
     router.register$composable_809tk2_k$('/', ComposableSingletons$MainKt_getInstance()._lambda_1_3);
     router.register$composable_809tk2_k$('/about', ComposableSingletons$MainKt_getInstance()._lambda_2_0);
     router.register$composable_809tk2_k$('/markdown', ComposableSingletons$MainKt_getInstance()._lambda_3);
@@ -47523,7 +47634,7 @@
       root.removeChild(ensureNotNull(root.firstChild));
       Unit_getInstance();
     }
-    renderComposable$composable('root', composableLambdaInstance(-985533300, true, _no_name_provided_$factory_327(router)));
+    renderComposable$composable('root', composableLambdaInstance(-985533279, true, _no_name_provided_$factory_327(router)));
     Unit_getInstance();
   }
   function _no_name_provided__365() {
@@ -47583,11 +47694,11 @@
   function ComposableSingletons$MainKt() {
     ComposableSingletons$MainKt_instance = this;
     var tmp = this;
-    tmp._lambda_1_3 = composableLambdaInstance(-985534019, false, _no_name_provided_$factory_328());
+    tmp._lambda_1_3 = composableLambdaInstance(-985534382, false, _no_name_provided_$factory_328());
     var tmp_0 = this;
-    tmp_0._lambda_2_0 = composableLambdaInstance(-985534463, false, _no_name_provided_$factory_329());
+    tmp_0._lambda_2_0 = composableLambdaInstance(-985534442, false, _no_name_provided_$factory_329());
     var tmp_1 = this;
-    tmp_1._lambda_3 = composableLambdaInstance(-985534263, false, _no_name_provided_$factory_330());
+    tmp_1._lambda_3 = composableLambdaInstance(-985534242, false, _no_name_provided_$factory_330());
   }
   ComposableSingletons$MainKt.$metadata$ = {
     simpleName: 'ComposableSingletons$MainKt',
@@ -47643,7 +47754,7 @@
     var $composer_0 = $composer;
     if (!(($changed & 81 ^ 16) === 0) ? true : !$composer_0._get_skipping__0_k$()) {
       var tmp = $composer_0;
-      MyApp$composable(composableLambda(tmp, -819895426, true, _no_name_provided_$factory_331(this._$router_0)), $composer_0, 6);
+      MyApp$composable(composableLambda(tmp, -819896179, true, _no_name_provided_$factory_331(this._$router_0)), $composer_0, 6);
     } else
       $composer_0.skipToGroupEnd_sv8swh_k$();
   };
@@ -48622,7 +48733,7 @@
   _no_name_provided__397.prototype.invoke_fpi9a8_k$ = function ($this$Row, $composer, $changed) {
     var $composer_0 = $composer;
     if (!(($changed & 81 ^ 16) === 0) ? true : !$composer_0._get_skipping__0_k$()) {
-      Text$composable_0('Created with ', null, null, $composer_0, 6, 6);
+      Text$composable_0('Made with ', null, null, $composer_0, 6, 6);
       Link$composable_0('https://github.com/varabyte/kobweb', 'Kobweb', null, null, $composer_0, 54, 12);
     } else
       $composer_0.skipToGroupEnd_sv8swh_k$();
