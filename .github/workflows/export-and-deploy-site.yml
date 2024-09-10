@@ -40,10 +40,11 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          build-scan-publish: true
-          build-scan-terms-of-use-url: "https://gradle.com/help/legal-terms-of-use"
-          build-scan-terms-of-use-agree: "yes"
+        # Uncomment below if you want build scans for your Gradle tasks
+        # with:
+        #  build-scan-publish: true
+        #  build-scan-terms-of-use-url: "https://gradle.com/help/legal-terms-of-use"
+        #  build-scan-terms-of-use-agree: "yes"
 
       - name: Query Browser Cache ID
         id: browser-cache-id
