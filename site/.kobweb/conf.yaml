@@ -7,9 +7,7 @@ server:
     dev:
       contentRoot: "build/processedResources/js/main/public"
       script: "build/dist/js/developmentExecutable/example.js"
-      api: "build/libs/example.jar"
     prod:
       script: "build/dist/js/productionExecutable/example.js"
-      siteRoot: "../docs"
 
   port: 8080
