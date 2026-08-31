@@ -1,5 +1,6 @@
-package org.example
+package org.example.app
 
+import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
@@ -7,21 +8,28 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.forms.ButtonStyle
 import com.varabyte.kobweb.silk.components.forms.ButtonVars
 import com.varabyte.kobweb.silk.components.layout.HorizontalDividerStyle
-import com.varabyte.kobweb.silk.style.addVariantBase
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.addVariantBase
 import com.varabyte.kobweb.silk.style.base
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import com.varabyte.kobweb.silk.theme.modifyStyleBase
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.percent
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 
 @InitSilk
 fun initSiteStyles(ctx: InitSilkContext) {
+    // This site does not need scrolling itself, but this is a good demonstration for how you might enable this in your
+    // own site. Note that we only enable smooth scrolling unless the user has requested reduced motion, which is
+    // considered a best practice.
+    ctx.stylesheet.registerStyle("html") {
+        cssRule(CSSMediaQuery.MediaFeature("prefers-reduced-motion", StylePropertyValue("no-preference"))) {
+            Modifier.scrollBehavior(ScrollBehavior.Smooth)
+        }
+    }
+
     ctx.stylesheet.registerStyleBase("body") {
         Modifier
             .fontFamily(

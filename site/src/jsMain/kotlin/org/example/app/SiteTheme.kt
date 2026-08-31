@@ -1,4 +1,4 @@
-package org.example
+package org.example.app
 
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors

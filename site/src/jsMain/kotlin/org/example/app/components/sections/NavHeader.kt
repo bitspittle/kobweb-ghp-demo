@@ -1,4 +1,4 @@
-package org.example.components.sections
+package org.example.app.components.sections
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.browser.dom.ElementTarget
@@ -32,8 +32,8 @@ import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.*
-import org.example.components.widgets.IconButton
-import org.example.toSitePalette
+import org.example.app.components.widgets.IconButton
+import org.example.app.toSitePalette
 
 val NavHeaderStyle = CssStyle.base {
     Modifier.fillMaxWidth().padding(1.cssRem)
@@ -53,7 +53,7 @@ private fun MenuItems() {
 @Composable
 private fun ColorModeButton() {
     var colorMode by ColorMode.currentState
-    IconButton(onClick = { colorMode = colorMode.opposite }) {
+    IconButton(onClick = { colorMode = colorMode.opposite },) {
         if (colorMode.isLight) MoonIcon() else SunIcon()
     }
     Tooltip(ElementTarget.PreviousSibling, "Toggle color mode", placement = PopupPlacement.BottomRight)

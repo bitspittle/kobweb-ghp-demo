@@ -1,5 +1,6 @@
 ---
-root: .components.layouts.MarkdownLayout("About")
+layout: .components.layouts.MarkdownLayout
+title: About
 ---
 
 # About this template
@@ -34,7 +35,7 @@ An example of how to define some site-specific colors, effectively extending the
 
 By convention, Kobweb codebases organize reusable site components under this folder. Within it, you have:
 
-* `layout/`<br>
+* `layouts/`<br>
   Represents top-level organization for pages
 * `sections/`<br>
   Areas of content that appear across multiple pages (such as nav bars and footers)
@@ -65,18 +66,16 @@ which you can find used throughout this template.
 Kobweb introduces the `Modifier` keyword that Android developers will recognize from the Jetpack Compose API. In a
 webdev context, this is used for setting CSS styles and html attributes on elements in the page.
 
-#### ComponentStyle
+#### CssStyle
 
-Traditional HTML pages use CSS to style their UI. In Kobweb, these styles can be declared using the `ComponentStyle`
-class in a Kotlin-idiomatic way. You can find examples of component styles used throughout the template.
-
-#### ComponentVariant
-
-You can generate variants from component styles, which are ways to take base component styles and tweak them further.
+Traditional HTML pages use CSS to style their UI. In Kobweb, these styles can be declared using the `CssStyle`
+class in a Kotlin-idiomatic way. You can find examples of style blocks used throughout the template.
 
 #### Keyframes
 
-You can create animations by declaring keyframes for them.
+You can create animations by declaring keyframes for them, using `Keyframes` blocks to define them (similar to
+declaring `CssStyle` style blocks). Once defined, call `Modifier.animation(YourKeyframes.toAnimation(...))` to
+reference them.
 
 ## Starting Point
 
@@ -98,7 +97,7 @@ When you are ready to share your site with the world, you'll want to export it f
 snapshot of your site.
 
 There are two flavors of Kobweb sites: *static layout* and *full stack*. You
-can [read more about these choices here](https://github.com/varabyte/kobweb#static-layout-vs-full-stack-sites).
+can [read more about these choices here](https://kobweb.varabyte.com/docs/concepts/foundation/exporting#static-layout-vs-full-stack-sites).
 
 For most sites, a static layout site is what you want, so to do that, return to the command line and run:
 
@@ -118,5 +117,5 @@ $ kobweb run --layout static --env prod
 If you're satisfied, you can upload your site files to the static website host provider of your choice. Each provider
 has its own instructions for how it discovers your files, so please refer to their documentation.
 
-You can [read this blog post](https://bitspittle.dev/blog/2022/staticdeploy) for some concrete examples of exporting a
+You can [read this blog post](https://bitspittle.dev/blog/2022/static-deploy) for some concrete examples of exporting a
 Kobweb site to two popular static website hosting providers.
