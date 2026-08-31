@@ -22,7 +22,7 @@ import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
 import com.varabyte.kobweb.silk.style.toAttrs
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.ColorSchemes
+import com.varabyte.kobweb.silk.theme.colors.ColorPalettes
 import org.example.HeadlineTextStyle
 import org.example.SubheadlineTextStyle
 import org.example.components.layouts.PageLayout
@@ -106,7 +106,7 @@ fun HomePage() {
                         // here. Link to an order page? Open a calendar UI? Play a movie?
                         // Up to you!
                         ctx.router.tryRoutingTo("/about")
-                    }, colorScheme = ColorSchemes.Blue) {
+                    }, colorPalette = ColorPalettes.Blue) {
                         Text("This could be your CTA")
                     }
                 }
@@ -115,11 +115,11 @@ fun HomePage() {
             Div(HomeGridStyle.toAttrs()) {
                 val sitePalette = ColorMode.current.toSitePalette()
                 GridCell(sitePalette.brand.primary, 1, 1, 2, 2)
-                GridCell(ColorSchemes.Monochrome._600, 1, 3)
-                GridCell(ColorSchemes.Monochrome._100, 1, 4, width = 2)
+                GridCell(ColorPalettes.Monochrome._600, 1, 3)
+                GridCell(ColorPalettes.Monochrome._100, 1, 4, width = 2)
                 GridCell(sitePalette.brand.accent, 2, 3, width = 2)
-                GridCell(ColorSchemes.Monochrome._300, 2, 5)
-                GridCell(ColorSchemes.Monochrome._800, 3, 1, width = 5)
+                GridCell(ColorPalettes.Monochrome._300, 2, 5)
+                GridCell(ColorPalettes.Monochrome._800, 3, 1, width = 5)
             }
         }
     }

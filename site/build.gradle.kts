@@ -24,29 +24,23 @@ kotlin {
     configAsKobwebApplication("example" /*, includeServer = true*/)
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.compose.runtime)
-            }
+        commonMain.dependencies {
+            implementation(libs.compose.runtime)
         }
 
-        val jsMain by getting {
-            dependencies {
-                implementation(libs.compose.html.core)
-                implementation(libs.kobweb.core)
-                implementation(libs.kobweb.silk)
-                // This default template uses built-in SVG icons, but what's available is limited.
-                // Uncomment the following if you want access to a large set of font-awesome icons:
-                // implementation(libs.silk.icons.fa)
-                implementation(libs.kobwebx.markdown)
-            }
+        jsMain.dependencies {
+            implementation(libs.compose.html.core)
+            implementation(libs.kobweb.core)
+            implementation(libs.kobweb.silk)
+            // This default template uses built-in SVG icons, but what's available is limited.
+            // Uncomment the following if you want access to a large set of font-awesome icons:
+            // implementation(libs.silk.icons.fa)
+            implementation(libs.kobwebx.markdown)
         }
 
         // Uncomment the following if you pass `includeServer = true` into the `configAsKobwebApplication` call.
-//        val jvmMain by getting {
-//            dependencies {
-//                implementation(libs.kobweb.api)
-//            }
+//        jvmMain.dependencies {
+//            implementation(libs.kobweb.api)
 //        }
     }
 }
